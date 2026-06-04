@@ -1,84 +1,58 @@
-#include <stdio.h> 
-#include <stdlib.h> 
+#include <stdio.h>
 #include <string.h>
 
-// Estrutura para cada musica da playlist
-typedef struct Musica { 
-    char nome[50]; 
-    struct Musica* prox; 
-} Musica;
+#define MAX 5
 
-// Funcao para colocar musica no fim da lista
-void inserir(Musica** lista, char* nome) {
-    Musica* novo = (Musica*)malloc(sizeof(Musica)); 
-    strcpy(novo->nome, nome); 
-    novo->prox = NULL;
-    
-    if (*lista == NULL) {
-        *lista = novo;
-    } else {
-        Musica* atual = *lista;
-        while (atual->prox != NULL) {
-            atual = atual->prox;
-        }
-        atual->prox = novo;
+// Vetor que guarda os nomes dos livros e o indicador do topo
+char pilha[MAX][50];
+int topo = -1; // Comeca em -1 porque a pilha está vazia
+
+// Operacao PUSH: adiciona livro no topo
+void push(char* livro) {
+    if (topo >= MAX - 1) {
+        printf("A pilha de livros esta cheia!\n");
+        return;
     }
+    topo++;
+    strcpy(pilha[topo], livro);
 }
 
-// Funcao para procurar uma musica pelo nome
-int buscar(Musica* lista, char* nome) { 
-    while(lista != NULL) { 
-        if (strcmp(lista->nome, nome) == 0) return 1; 
-        lista = lista->prox; 
-    } 
-    return 0; 
-}
-
-// Funcao para tirar uma musica da lista e liberar memoria
-void remover(Musica** lista, char* nome) {
-    Musica *atual = *lista, *ant = NULL; 
-    while (atual != NULL && strcmp(atual->nome, nome) != 0) {
-        ant = atual; 
-        atual = atual->prox; 
-    } 
-    if (atual == NULL) return; 
-    if (ant == NULL) *lista = atual->prox; 
-    else ant->prox = atual->prox; 
-    free(atual);
-}
-
-// Funcao para mostrar a lista na tela
-void exibir(Musica* lista) {
-    int i = 1; 
-    while (lista != NULL) { 
-        printf("%d. %s\n", i++, lista->nome);
-        lista = lista->prox;
+// Operacao POP: remove livro do topo
+void pop() {
+    if (topo == -1) {
+        printf("Nao ha livros na pilha!\n");
+        return;
     }
+    printf("Livro retirado do topo: %s\n", pilha[topo]);
+    topo--;
 }
 
-int main() { 
-    Musica* minhaPlaylist = NULL;
-    
-    // Adicionando as musicas na playlist
-    inserir(&minhaPlaylist, "Sofia - Clairo");
-    inserir(&minhaPlaylist, "Motion Sickness - Phoebe Bridgers");
-    inserir(&minhaPlaylist, "Bags - Clairo");
-    
-    printf("Playlist:\n");
-    exibir(minhaPlaylist);
-    
-    // Testando a busca
-    if (buscar(minhaPlaylist, "Motion Sickness - Phoebe Bridgers")) {
-        printf("\nMotion Sickness esta na playlist.\n");
-    } else {
-        printf("\nMotion Sickness nao encontrada.\n");
+// Operacao EXIBIR: mostra a pilha do topo para baixo
+void exibir() {
+    if (topo == -1) {
+        printf("Pilha vazia.\n");
+        return;
     }
+    printf("\n--- PILHA DE LIVROS ---\n");
+    for (int i = topo; i >= 0; i--) {
+        printf("[ %s ]\n", pilha[i]);
+    }
+    printf("-----------------------\n");
+}
+
+int main() {
+    // Colocando os livros na pilha
+    push("Livro de Calculo");
+    push("Livro de Fisica");
+    push("Livro de C"); // Este fica no topo
     
-    // Testando a remocao
-    remover(&minhaPlaylist, "Motion Sickness - Phoebe Bridgers");
+    exibir();
     
-    printf("\nDepois de remover Motion Sickness:\n");
-    exibir(minhaPlaylist);
+    // Tirando o livro do topo
+    pop();
     
-    return 0; 
+    // Mostrando como ficou
+    exibir();
+    
+    return 0;
 }
