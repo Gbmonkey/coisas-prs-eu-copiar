@@ -7,6 +7,10 @@ implemente em C.
 • O código deve compilar e funcionar.
 • Responda as questões com suas próprias palavras.
 
+Gabriel Carvalhosa Moreira
+Matéria:Estrutura de Dados
+Matrícula: 202403517779
+
 Parte 1 - Lista Linear
 Uma lista linear é uma sequência de elementos onde cada um ocupa uma posição. Ela permite
 buscar, inserir e remover elementos.
@@ -418,11 +422,26 @@ R: escolhendo duas das funções e ignorando as outras.
 Para viras pilha(lifo): bastaria que o sistema usasse apenas as funções inserir Fin (para escolher ações) e remover fim (para cancelar as ações)
 Para virar fila comum (FIFO): o jogo usaria apenas as funções inserir fim (conforme as barras de tempo normais terminam de carregar) e remover Inicio (para descarregar e executar cada golpe na tela).
 
-Questão 1: Das quatro estruturas que você implementou, qual foi a mais difícil? O que gerou mais dúvida?R: Sem dúvida o Deque foi a mais difícil e chata de fazer. Ele superou até a lista linear. A parte que mais me deu dúvida foi a lógica de empurrar todos os elementos pra direita quando insere no início e puxar tudo pra esquerda quando remove do início. Quase me confundi inteiro várias vezes. Ainda tentei encaixar no tema de Chrono Trigger e fiz tudo no celular, então foi bem ruim pra manter a concentração e fiquei com medo de deletar alguma coisa errada.Questão 2: Qual é a principal diferença entre uma estrutura com vetor e uma com lista encadeada? Quando vale a pena usar cada uma?R: A diferença principal é que o vetor tem tamanho fixo e toda vez que você insere ou remove no meio tem que ficar arrastando os outros elementos. Já a lista encadeada cresce dinamicamente e só muda os ponteiros.  Vetor vale mais a pena quando você sabe o limite máximo de itens e quer algo mais simples (como a pilha de artbooks). Lista encadeada é melhor quando não se sabe quantos elementos vão ter e tem muitas inserções e remoções (como a playlist de músicas).Questão 3: Imagine que você vai criar um aplicativo de verdade. Para cada situação abaixo, escreva qual estrutura usaria e por que:Histórico de páginas visitadas num navegador (botão Voltar):
-Usaria Pilha, porque a última página que você visitou tem que ser a primeira a voltar (LIFO).
+Reflexão Final
+
+Questão 1: Das quatro estruturas que você implementou, qual foi a mais difícil? O que gerou mais dúvida?
+R: Sem dúvida o Deque foi a mais difícil e chata de fazer. Ele superou até a lista linear. A parte que mais me deu dúvida foi a lógica de empurrar todos os elementos pra direita quando insere no início e puxar tudo pra esquerda quando remove do início. Quase me confundi inteiro várias vezes. Ainda tentei encaixar no tema de Chrono Trigger e fiz tudo no celular, então foi bem ruim pra manter a concentração e fiquei com medo de deletar alguma coisa errada.
+
+Questão 2: Qual é a principal diferença entre uma estrutura com vetor e uma com lista encadeada? Quando vale a pena usar cada uma?
+R: A diferença principal é que o vetor tem tamanho fixo e toda vez que você insere ou remove no meio tem que ficar arrastando os outros elementos. Já a lista encadeada cresce dinamicamente e só muda os ponteiros.  Vetor vale mais a pena quando você sabe o limite máximo de itens e quer algo mais simples (como a pilha de artbooks). Lista encadeada é melhor quando não se sabe quantos elementos vão ter e tem muitas inserções e remoções (como a playlist de músicas).
+
+Questão 3: Imagine que você vai criar um aplicativo de verdade. Para cada situação abaixo, escreva qual estrutura usaria e por que:
+Histórico de páginas visitadas num navegador (botão Voltar):
+R: Usaria Pilha, porque a última página que você visitou tem que ser a primeira a voltar (LIFO).
+
 Fila de espera num sistema de senhas:
-Fila normal (FIFO), pra manter a ordem de chegada das pessoas.
+R: Fila normal (FIFO), pra manter a ordem de chegada das pessoas.
+
 Lista de contatos de um celular:
-Lista Linear (encadeada). Porque a gente precisa buscar, adicionar ou remover contato em qualquer posição, sem ficar preso só nas pontas.
+R: Lista Linear (encadeada). Porque a gente precisa buscar, adicionar ou remover contato em qualquer posição, sem ficar preso só nas pontas.
+
 Sistema de desfazer e refazer ações num editor de texto:
-Deque. Ele permite desfazer as ações de um lado e, se o histórico ficar muito grande, dá pra remover as ações mais antigas do outro lado.
+R: Deque. Ele permite desfazer as ações de um lado e, se o histórico ficar muito grande, dá pra remover as ações mais antigas do outro lado.
+
+
+
