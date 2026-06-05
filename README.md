@@ -218,10 +218,7 @@ estrutura de pilha segue a regra do LIFO, como o C
 foi o último empilhado,  logo ele foi o primeiro a sair. 
 
 b) Dê um exemplo real, diferente do seu código, onde a regra LIFO faz sentido. Explique.
-R: o botão “Voltar ” no navegador de internet, no navegador como firefox cada vez que visitamos uma página ela empilha. Se eu entro num site A depois B e C e se você aperta o botão de voltar, o sistema remove e te joga
-exatamente para a última página que
-você tinha visitado antes da atual, 
-em sequência.
+R: O ctrl+z no photoshop ou word usa una pilha. Cada ação e empilhada. Quando o usuário aperts essa tecla a última ação é removida primeira(LIFO), desfazendo na ordem inversa em Que foram feitas. 
 
 Parte 3 - Fila (Queue)
 A fila segue a regra FIFO: o primeiro elemento a entrar e o primeiro a sair. Inserção acontece no
