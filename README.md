@@ -1,74 +1,24 @@
-#include <stdio.h>
-#include <string.h>
+Aqui estão as respostas completas da Parte 4 - Deque, totalmente ajustadas e adaptadas com base na lógica exata do sistema de batalha de Chrono Trigger que você organizou. Pode passar para a sua folha exatamente assim:
+------------------------------
+## Qual contexto você escolheu?
+Fila de ações de combate por turnos inspirada no sistema de batalha (ATB) do jogo Chrono Trigger.
+## Descreva aqui o exemplo que você vai usar e o que cada operação significa:
+Vou gerenciar a ordem das habilidades dos personagens (Crono, Lucca e Marle) dentro de um vetor de comandos de batalha. Nesse contexto:
 
-#define MAX 5
-char deque[MAX][50]; // Vetor de strings para as ações de combate
-int qtd = 0;
+* Inserir Fim: Adiciona uma ação ou técnica padrão da equipe (como o Ciclone do Crono) no final da fila de execução, conforme a barra de tempo enche normalmente.
+* Inserir Início: Adiciona o comando de um personagem que está sob o efeito do status Haste (acelerado). Como a barra dele carrega muito mais rápido que as outras, a ação dele assume o início da fila de execução (posição 0 do vetor).
+* Remover Início: Executa a ação que está na vez (no início da fila) e a retira do vetor.
+* Remover Fim: Representa o jogador apertando o botão 'B' no controle para cancelar a última ação que ele escolheu, abrindo o menu de comandos novamente.
 
-// Inserir no fim: comando de ataque normal (barra carregou normalmente)
-void inserirFim(char* acao) {
-    if (qtd >= MAX) return;
-    strcpy(deque[qtd], acao);
-    qtd++;
-}
+------------------------------
+## Questões
 
-// inserir no inicio: efeito de velocidade (Magia Haste / Barra carregou super rapido)
-void inserirInicio(char* acao) {
-    if (qtd >= MAX) return;
-    // Empurra todas as acoes para a direita no vetor
-    for (int i = qtd; i > 0; i--) {
-        strcpy(deque[i], deque[i - 1]);
-    }
-    strcpy(deque[0], acao);
-    qtd++;
-}
+* a) Em que situação o deque é mais útil do que uma pilha ou uma fila simples? Explique com base no seu exemplo.
+* R: O deque é muito mais útil porque ele dá flexibilidade total para controlar as duas pontas da estrutura simultaneamente. Numa fila simples, eu não conseguiria simular o efeito do status Haste (que faz a barra de tempo carregar mais rápido e coloca o comando da Marle na posição 0 do vetor). Numa pilha, eu não conseguiria executar as ações na ordem correta de quem escolheu primeiro. O deque resolve os dois lados e ainda me permite usar o botão 'B' para cancelar e remover apenas a última ação selecionada (Remover Fim) sem bagunçar as ações que já estavam programadas na fila.
+* b) O deque pode se comportar como pilha ou como fila. Como você faria isso usando apenas as funções do seu deque?
+* R: Para fazer o meu deque se comportar estritamente como uma Pilha, bastaria que o sistema usasse apenas as funções inserirFim (para escolher ações) e removerFim (para cancelar as ações). Para fazer ele funcionar estritamente como uma Fila tradicional de turnos, o jogo usaria apenas as funções inserirFim (conforme as barras de tempo normais terminam de carregar) e removerInicio (para descarregar e executar cada golpe na tela).
 
-// Remover no inicio: executa o ataque da vez
-void removerInicio() {
-    if (qtd == 0) return;
-    printf("Batalha: Executando [%s]\n", deque[0]);
-    // Puxa as acoes restantes para a esquerda
-    for (int i = 0; i < qtd - 1; i++) {
-        strcpy(deque[i], deque[i + 1]);
-    }
-    qtd--;
-}
+------------------------------
+Pronto! A Parte 4 está completamente amarrada, explicada e fiel às regras do jogo.
+Quer que eu passe as respostas das últimas 3 perguntinhas da Reflexão Final para você encerrar tudo com tranquilidade e enviar o trabalho ainda hoje?
 
-// Remover no fim: Jogador aperta 'B' e cancela(volta para o menude ação) a acao
-void removerFim() {
-    if (qtd == 0) return;
-    printf("Cancelado pelo jogador: [%s]\n", deque[qtd - 1]);
-    qtd--;
-}
-
-void exibir() {
-    if (qtd == 0) {
-         printf("Nenhum comando na fila de batalha.\n");
-         return;
-    }
-    printf("Fila de Turnos: ");
-    for (int i = 0; i < qtd; i++) {
-        printf("[%s] ", deque[i]);
-    }
-    printf("\n");
-}
-
-int main() {
-    // Crono e Lucca escolhem ações (techs que custam pouco MP por exemplo) 
-    inserirFim("Crono: Ciclone! ");
-    inserirFim("Lucca: Lança-chamas! ");
-    exibir();
-    
-    // Marle está sob efeito de Haste e sua barra enche instantaneamente
-    printf("\nMarle esta com status Haste e sua barra de ATB enche mais rapido!\n");
-    inserirInicio("Marle: Cura! "); // Devido a velocidade, assume a posicao 0
-    exibir();
-    
-    printf("\n--- EXECUCAO DOS TURNOS ---\n");
-    removerInicio(); // Executa a cura da Marle primeiro devido a sua velocidade
-    removerFim();    // Jogador cancela a acao da Lucca apertando 'B'
-    
-    printf("\nEstado atual da batalha:\n");
-    exibir();
-    return 0;
-}
